@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import datetime as dt
 
-import duckdb
 import holidays
 import pandas as pd
 
@@ -46,7 +45,8 @@ def calendar_row(d: dt.date) -> dict:
 
 
 # --------------------------------------------------------------------------- DuckDB helpers
-def connect(memory_limit: str | None = None) -> duckdb.DuckDBPyConnection:
+def connect(memory_limit: str | None = None):
+    import duckdb  # imported here so the web app does not need duckdb
     con = duckdb.connect()
     if memory_limit:
         con.execute(f"PRAGMA memory_limit='{memory_limit}'")
