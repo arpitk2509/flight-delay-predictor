@@ -49,6 +49,7 @@ Pick a US domestic route, an airline, a date and a scheduled departure time. The
 - a chart of **late-arrival rate by departure hour** at the origin airport.
 
 Everything is computed from information known **before departure**, so the estimate is something a passenger could really use when booking.
+
 <br>
 
 <img src="docs/prediction_breakdown.png" alt="Flight Delay Predictor feature breakdown and hourly chart" width="860">
