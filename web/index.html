@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will my flight be late?</title>
+  <meta name="description" content="Estimate the chance a US domestic flight arrives 15 or more minutes late, based on years of Department of Transportation data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-head">
+    <h1>Will my flight be late?</h1>
+    <p>Pick a US domestic flight and see how likely it is to land 15 minutes or more behind schedule. The estimate comes from a model trained on millions of Department of Transportation flight records.</p>
+  </header>
+
+  <main>
+    <section class="pass" aria-labelledby="pass-title">
+      <form id="flight-form" class="pass-main" novalidate>
+        <h2 id="pass-title" class="pass-title">Your flight</h2>
+
+        <div class="field">
+          <label for="origin">From</label>
+          <select id="origin" required><option value="">Loading airports...</option></select>
+        </div>
+
+        <div class="field">
+          <label for="dest">To</label>
+          <select id="dest" required disabled><option value="">Choose a departure airport first</option></select>
+        </div>
+
+        <div class="field">
+          <label for="carrier">Airline</label>
+          <select id="carrier" required disabled><option value="">Choose a destination first</option></select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="date">Date</label>
+            <input id="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Scheduled departure</label>
+            <input id="time" type="time" value="09:00" required>
+          </div>
+        </div>
+
+        <button id="submit" type="submit" disabled>Check delay risk</button>
+        <p id="form-error" class="error" role="alert" hidden></p>
+      </form>
+
+      <div class="perforation" aria-hidden="true"></div>
+
+      <aside class="pass-stub" aria-live="polite" aria-labelledby="stub-title">
+        <h2 id="stub-title" class="visually-hidden">Result</h2>
+
+        <div id="stub-empty" class="stub-empty">
+          <p>Your result appears here.</p>
+          <p class="muted">Choose where you are flying and when, then check the risk.</p>
+        </div>
+
+        <div id="stub-result" hidden>
+          <div class="route">
+            <span id="r-origin" class="code">---</span>
+            <svg class="plane" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
+            <span id="r-dest" class="code">---</span>
+          </div>
+          <p id="r-meta" class="muted route-meta"></p>
+
+          <p class="prob"><span id="r-prob">--</span><span class="prob-label">chance of arriving 15+ minutes late</span></p>
+
+          <div class="meter" role="img" id="meter" aria-label="Delay risk compared with a typical flight">
+            <div class="meter-track">
+              <div id="meter-fill" class="meter-fill"></div>
+              <div id="meter-typical" class="meter-typical"><span>typical flight</span></div>
+            </div>
+          </div>
+
+          <p id="r-verdict" class="verdict"></p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="details" class="details" hidden>
+      <div class="panel">
+        <h2>What drives this estimate</h2>
+        <p class="muted">Bars show how strongly each factor pushed this flight's risk up or down.</p>
+        <ul id="reasons" class="reasons"></ul>
+      </div>
+
+      <div class="panel">
+        <h2 id="chart-title">Late arrivals by departure hour</h2>
+        <p class="muted" id="chart-sub"></p>
+        <div id="chart" class="chart"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <p id="model-note" class="muted"></p>
+    <p class="muted">A flight counts as late if it arrives 15 or more minutes after its scheduled time, the same definition the Department of Transportation uses. This is a statistical estimate, not a guarantee. It does not know about today's weather or air traffic, so check your airline for live status.</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

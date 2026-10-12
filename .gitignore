@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+mlruns/
+# raw + converted data is big: never commit it
+data/
+# NOTE: artifacts/ (trained model + lookups) IS committed so deployment can use it
+.DS_Store

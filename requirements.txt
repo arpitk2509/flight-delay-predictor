@@ -1,0 +1,18 @@
+# --- data + modelling (training machine) ---
+duckdb>=1.0
+pandas>=2.0
+pyarrow>=14
+numpy>=1.26
+scikit-learn>=1.4
+lightgbm>=4.3
+holidays>=0.50
+requests>=2.31
+joblib>=1.3
+matplotlib>=3.8
+jupyter>=1.0
+# --- serving (also used inside Docker) ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+# --- tests ---
+pytest>=8.0
+httpx>=0.27

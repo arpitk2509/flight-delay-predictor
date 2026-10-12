@@ -1,0 +1,17 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Make sample data and train a tiny model
+        run: |
+          python scripts/make_sample_data.py --rows-per-year 60000
+          python -m src.train --quick
+      - name: Run tests
+        run: pytest -q
